@@ -5,7 +5,7 @@ export async function getPeople() {
 }
 
 export async function getCharacter(id=1){
-  const response = await fetch("https://swapi.dev/api/people/${id}/")
+  const response = await fetch("https://swapi.dev/api/people/" + id)
   const data = await response.json()
   return data
 }
