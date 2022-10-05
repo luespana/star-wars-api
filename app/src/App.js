@@ -27,11 +27,16 @@ function App() {
         <li key={character.name} onClick={()=> showDetails(character)}>{character.name}</li>
       ))}
     </ul>
-    <aside>
+    {details && (
+      <aside>
       <h1>
         {details.name}
       </h1>
+      <ul>
+        <li></li>
+      </ul>
     </aside>
+    )}
     </div>
   );
 }
