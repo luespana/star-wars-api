@@ -1,15 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "./App.css";
-import { getCharacter, getPeople } from "./api/people";
+import { getCharacter, getPeople, searchCharacter } from "./api/people";
 
 function App() {
+  const inputSearch = useRef(null)
+  const [textSearch, setTextSearch] = useState("")
   const [people, setPeople] = useState([]);
   const [currentCharacter, setCurrentCharacter] = useState(1)
   const [details, setDetails] = useState([])
 
   useEffect(() => {
-    getPeople().then((data) => setPeople(data.results));
-  }, []);
+    getPeople().then((data) => setPeople(data.results))
+  },[]);
 
   useEffect(()=>{
     getCharacter(currentCharacter).then(setDetails)
@@ -20,23 +22,43 @@ function App() {
     setCurrentCharacter(id)
   }
 
+  const onChangeTextSearch = (event) => {
+    event.preventDefault()
+    const text = inputSearch.current.value
+    setTextSearch(text)
+  }
+
+  const onSearchSubmit = (event) => {
+    if(event.key !== "Enter") return;
+    inputSearch.current.value = "";
+    setDetails({})
+    searchCharacter(textSearch).then((data) => setPeople(data.results))
+  }
+
   return (
     <div>
+      <input 
+      ref={inputSearch} 
+      onChange={onChangeTextSearch} 
+      onKeyDown={onSearchSubmit}
+      type="text" placeholder="Busca un Personaje"/>
       <ul>
       {people.map((character) => (
         <li key={character.name} onClick={()=> showDetails(character)}>{character.name}</li>
       ))}
-    </ul>
-    {details && (
+      </ul>
+      {details && (
       <aside>
       <h1>
         {details.name}
       </h1>
       <ul>
-        <li></li>
+        <li>Height: {details.height}</li>
+        <li>Mass: {details.mass}</li>
+        <li>Year of Birth: {details.birth_year}</li>
       </ul>
-    </aside>
-    )}
+      </aside>
+      )}
     </div>
   );
 }
