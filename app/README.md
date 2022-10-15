@@ -1,6 +1,6 @@
 # Star Wars Charaters App
 
-star-wars-luespana.vercel.app
+https://star-wars-luespana.vercel.app/
 
 Este sitio web te permite buscar y visualizar informacion sobre cada uno de los personajes de la saga de Star Wars. Se realizo un paginado para optimizar la informacion.
 
