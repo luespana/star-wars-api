@@ -39,6 +39,8 @@ body {
   font-size: 1.2rem;
   background-color: #22222254;
   background-image: url("../public/Wallpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .lista li:hover {
