@@ -9,6 +9,9 @@ function App() {
   const [currentCharacter, setCurrentCharacter] = useState(null);
   const [details, setDetails] = useState([]);
 
+  const [page, setPage] = useState(1)
+
+
   useEffect(() => {
     getPeople().then((data) => setPeople(data.results));
   }, []);
@@ -30,10 +33,19 @@ function App() {
 
   const onSearchSubmit = (event) => {
     if (event.key !== "Enter") return;
+
     inputSearch.current.value = "";
     setDetails([]);
-    searchCharacter(textSearch).then((data) => setPeople(data.results));
+    searchCharacter(textSearch)
+      .then((data) => setPeople(data.results));
   };
+
+  const onChangePage = (next) =>{
+   if(!people.previous && page + next < 0) return
+   if(!people.next && page + next >= 9) return
+
+   setPage(page + next)
+  }
 
   return (
     <div>
@@ -45,12 +57,19 @@ function App() {
         placeholder="Busca un Personaje"
       />
       <ul>
-        {people.map((character) => (
+        {people.results.map((character) => (
           <li key={character.name} onClick={() => showDetails(character)}>
             {character.name}
           </li>
         ))}
       </ul>
+
+      <section>
+        <button onClick={()=>onChangePage(-1)}>Prev</button>
+        <input>{page}</input>
+        <button onClick={()=>onChangePage(1)}>Next</button>
+      </section>
+
       {details && currentCharacter && (
         <aside>
           <h1>{details.name}</h1>
