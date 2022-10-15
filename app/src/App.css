@@ -1,38 +1,78 @@
-.App {
-  text-align: center;
+/* primary: #11998e;
+secondary: #38ef7d;
+white: #fff;
+gray: #9b9b9b; */
+.form__group {
+  position: relative;
+  width: 100%;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.form__field {
+  font-family: inherit;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  outline: 0;
+  font-size: 1.3rem;
+  padding: 7px 0;
+  background: transparent;
+  transition: border-color 0.2s;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.form__label {
+  position: absolute;
+  top: 0;
+  display: block;
+  transition: 0.2s;
+  font-size: 1rem;
+  color: gray;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* demo */
+body {
+  font-family: "Courier New", Courier, monospace;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  min-height: 100vh;
+  font-size: 1.2rem;
+  background-color: #22222254;
+  background-image: url("../public/Wallpaper.jpg");
+}
+
+.lista li:hover {
+  cursor: pointer;
+  background-color: rgba(94, 93, 93, 0.5);
+}
+
+.lista li {
+  color: white;
+  cursor: pointer;
+}
+
+.titulo {
+  font-family: "Courier New", Courier, monospace;
+  color: white;
+  font-size: 3.5rem;
+}
+
+.span {
+  font-family: "Courier New", Courier, monospace;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.aside {
+  font-family: "Courier New", Courier, monospace;
+  color: white;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.boton {
+  font-family: "Courier New", Courier, monospace;
+  background-color: #222222fd;
+  color: white;
+  width: 80px;
+  height: 30px;
+  border-radius: 10px;
+  cursor: pointer;
 }

@@ -9,12 +9,11 @@ function App() {
   const [currentCharacter, setCurrentCharacter] = useState(null);
   const [details, setDetails] = useState([]);
 
-  const [page, setPage] = useState(1)
-
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    getPeople().then((data) => setPeople(data.results));
-  }, []);
+    getPeople(page).then((data) => setPeople(data));
+  }, [page]);
 
   useEffect(() => {
     getCharacter(currentCharacter).then(setDetails);
@@ -36,46 +35,56 @@ function App() {
 
     inputSearch.current.value = "";
     setDetails([]);
-    searchCharacter(textSearch)
-      .then((data) => setPeople(data.results));
+    searchCharacter(textSearch).then((data) => setPeople(data));
   };
 
-  const onChangePage = (next) =>{
-   if(!people.previous && page + next < 0) return
-   if(!people.next && page + next >= 9) return
-
-   setPage(page + next)
-  }
+  const onChangePage = (next) => {
+    if (!people.previous && page + next <= 0) return;
+    if (!people.next && page + next >= 9) return;
+    setPage(page + next);
+  };
 
   return (
     <div>
-      <input
-        ref={inputSearch}
-        onChange={onChangeTextSearch}
-        onKeyDown={onSearchSubmit}
-        type="text"
-        placeholder="Busca un Personaje"
-      />
-      <ul>
-        {people.results.map((character) => (
-          <li key={character.name} onClick={() => showDetails(character)}>
-            {character.name}
-          </li>
-        ))}
+      <h1 className="titulo">STAR WARS CHARACTERS</h1>
+      <div className="form__group field">
+        <input
+          className="form__field"
+          name="name"
+          id="name"
+          ref={inputSearch}
+          onChange={onChangeTextSearch}
+          onKeyDown={onSearchSubmit}
+          type="text"
+          placeholder="Busca un Personaje"
+        />
+      </div>
+      <ul className="lista">
+        {people.results &&
+          people.results.map((character) => (
+            <li key={character.name} onClick={() => showDetails(character)}>
+              {character.name}
+            </li>
+          ))}
       </ul>
 
       <section>
-        <button onClick={()=>onChangePage(-1)}>Prev</button>
-        <input>{page}</input>
-        <button onClick={()=>onChangePage(1)}>Next</button>
+        <button className="boton" onClick={() => onChangePage(-1)}>
+          Prev
+        </button>
+        <span className="span">| {page} |</span>
+        <button className="boton" onClick={() => onChangePage(1)}>
+          Next
+        </button>
       </section>
 
       {details && currentCharacter && (
-        <aside>
+        <aside className="aside">
           <h1>{details.name}</h1>
           <ul>
             <li>Height: {details.height}</li>
-            <li>Mass: {details.mass}</li>
+            <li>Hair Color: {details.hair_color}</li>
+            <li>Eye Color: {details.eye_color}</li>
             <li>Year of Birth: {details.birth_year}</li>
           </ul>
         </aside>
